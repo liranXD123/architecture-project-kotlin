@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.architectureproject.databinding.AllItemsLayoutBinding
 
 class AllItemsFragment : Fragment() {
@@ -17,12 +19,17 @@ class AllItemsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = AllItemsLayoutBinding.inflate(layoutInflater, container,false)
-        binding.fab
-        return super.onCreateView(inflater, container, savedInstanceState)
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.action_allItemsFragment_to_addItemFragment)
+        }
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.getString("title")?.let{
+            Toast.makeText(requireActivity(),it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {
