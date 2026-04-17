@@ -20,8 +20,11 @@ class AddItemFragment : Fragment() {
     ): View? {
         _binding = AddItemLayoutBinding.inflate(layoutInflater, container, false)
         binding.finishButton.setOnClickListener {
-            val bundle = bundleOf("title" to binding.itemTitle.text.toString(), "description" to binding.itemDescreption.text.toString())
-            findNavController().navigate(R.id.action_addItemFragment_to_allItemsFragment, bundle)
+            //val bundle = bundleOf("title" to binding.itemTitle.text.toString(), "description" to binding.itemDescreption.text.toString())
+            //findNavController().navigate(R.id.action_addItemFragment_to_allItemsFragment, bundle)
+            val item = Item(binding.itemTitle.text.toString(), binding.itemDescreption.text.toString(), null)
+            ItemManager.add(item)
+            findNavController().navigate(R.id.action_addItemFragment_to_allItemsFragment)
         }
         return binding.root
     }

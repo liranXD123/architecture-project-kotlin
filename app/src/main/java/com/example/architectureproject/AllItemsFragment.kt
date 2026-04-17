@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architectureproject.databinding.AllItemsLayoutBinding
 
 class AllItemsFragment : Fragment() {
@@ -30,6 +31,8 @@ class AllItemsFragment : Fragment() {
         arguments?.getString("title")?.let{
             Toast.makeText(requireActivity(),it, Toast.LENGTH_SHORT).show()
         }
+        binding.recycler.adapter = ItemAdapter(ItemManager.items)
+        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onDestroyView() {
