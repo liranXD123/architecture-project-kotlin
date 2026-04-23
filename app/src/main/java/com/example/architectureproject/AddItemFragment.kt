@@ -39,7 +39,7 @@ class AddItemFragment : Fragment() {
         binding.finishButton.setOnClickListener {
             //val bundle = bundleOf("title" to binding.itemTitle.text.toString(), "description" to binding.itemDescreption.text.toString())
             //findNavController().navigate(R.id.action_addItemFragment_to_allItemsFragment, bundle)
-            val item = Item(binding.itemTitle.text.toString(), binding.itemDescreption.text.toString(), imageUri.toString())
+            val item = Item(binding.itemTitle.text.toString(), binding.itemDescription.text.toString(), imageUri?.toString())
             ItemManager.add(item)
             findNavController().navigate(R.id.action_addItemFragment_to_allItemsFragment)
         }

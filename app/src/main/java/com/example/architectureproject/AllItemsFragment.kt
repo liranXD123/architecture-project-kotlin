@@ -1,10 +1,12 @@
 package com.example.architectureproject
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -40,8 +42,15 @@ class AllItemsFragment : Fragment() {
             }
 
             override fun onItemLongClicked(index: Int) {
-                ItemManager.remove(index)
-                binding.recycler.adapter!!.notifyItemRemoved(index)            }
+                val selectedItem: Item = ItemManager.items[index]
+                val bundle = bundleOf(
+                    "item_title" to selectedItem.title,
+                    "item_desc" to selectedItem.description,
+                    "item_photo" to selectedItem.photo
+                )
+                findNavController().navigate(R.id.action_allItemsFragment_to_detailsFragment, bundle)
+            }
+
         })
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
 
