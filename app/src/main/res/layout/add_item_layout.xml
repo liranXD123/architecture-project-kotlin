@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AddItemFragment">
+    tools:context=".ui.AddItemFragment">
     >
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

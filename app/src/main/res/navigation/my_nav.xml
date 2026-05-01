@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/allItemsFragment"
-        android:name="com.example.architectureproject.AllItemsFragment"
+        android:name="com.example.architectureproject.ui.AllItemsFragment"
         android:label="all_items_layout"
         tools:layout="@layout/all_items_layout" >
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"
-        android:name="com.example.architectureproject.AddItemFragment"
+        android:name="com.example.architectureproject.ui.AddItemFragment"
         android:label="add_item_layout"
         tools:layout="@layout/add_item_layout" >
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.architectureproject.DetailsFragment"
+        android:name="com.example.architectureproject.ui.DetailsFragment"
         android:label="details_layout"
         tools:layout="@layout/details_layout" />
 </navigation>

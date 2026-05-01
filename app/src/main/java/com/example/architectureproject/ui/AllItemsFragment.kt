@@ -1,7 +1,6 @@
-package com.example.architectureproject
+package com.example.architectureproject.ui
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.architectureproject.R
+import com.example.architectureproject.data.model.Item
+import com.example.architectureproject.data.model.ItemManager
 import com.example.architectureproject.databinding.AllItemsLayoutBinding
 
 class AllItemsFragment : Fragment() {
