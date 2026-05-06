@@ -9,16 +9,19 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.architectureproject.R
 import com.example.architectureproject.data.model.Item
-import com.example.architectureproject.data.model.ItemManager
 import com.example.architectureproject.databinding.AddItemLayoutBinding
+import kotlin.getValue
 
 class AddItemFragment : Fragment() {
     private var _binding : AddItemLayoutBinding?=null
     private val binding get() = _binding!!
     private var imageUri: Uri?=null
+
+    private val viewModel : ItemsViewModel by activityViewModels()
 
     val pickImageLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
@@ -45,7 +48,8 @@ class AddItemFragment : Fragment() {
                 binding.itemDescription.text.toString(),
                 imageUri?.toString()
             )
-            ItemManager.add(item)
+            //ItemManager.add(item)
+            viewModel.addItem(item)
             findNavController().navigate(R.id.action_addItemFragment_to_allItemsFragment)
         }
         return binding.root

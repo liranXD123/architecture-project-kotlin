@@ -31,12 +31,13 @@ class ItemAdapter(val items:List<Item>, val callBack: ItemListener): RecyclerVie
         }
 
         fun bind(item: Item) {
-                binding.itemTitle.text=item.title
-                binding.itemDescription.text=item.description
+            binding.itemTitle.text = item.content
+            binding.itemDescription.text=item.description
                 //binding.itemImage.setImageURI(Uri.parse(item.photo))
-                Glide.with(binding.root).load(item.photo).circleCrop().into(binding.itemImage)
-            }
+            Glide.with(binding.root.context).load(item.image).circleCrop().into(binding.itemImage)            }
         }
+
+    fun itemAt(position: Int) = items[position]
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

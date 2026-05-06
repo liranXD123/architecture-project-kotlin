@@ -7,19 +7,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architectureproject.R
 import com.example.architectureproject.data.model.Item
-import com.example.architectureproject.data.model.ItemManager
 import com.example.architectureproject.databinding.AllItemsLayoutBinding
 
 class AllItemsFragment : Fragment() {
 
     private var _binding: AllItemsLayoutBinding?= null
     private val binding get()= _binding!!
+
+    private val viewModel : ItemsViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,24 +39,25 @@ class AllItemsFragment : Fragment() {
         arguments?.getString("title")?.let{
             Toast.makeText(requireActivity(),it, Toast.LENGTH_SHORT).show()
         }
-        binding.recycler.adapter = ItemAdapter(ItemManager.items, object : ItemAdapter.ItemListener {
-            override fun onItemClicked(index: Int) {
-                Toast.makeText(requireContext(),
-                    "${ItemManager.items[index]}", Toast.LENGTH_SHORT).show()
-            }
+        viewModel.items?.observe(viewLifecycleOwner){
+            binding.recycler.adapter = ItemAdapter(it, object : ItemAdapter.ItemListener {
+                override fun onItemClicked(index: Int) {
+                    Toast.makeText(requireContext(),
+                        "${it[index]}", Toast.LENGTH_SHORT).show()
+                }
 
-            override fun onItemLongClicked(index: Int) {
-                val selectedItem: Item = ItemManager.items[index]
-                val bundle = bundleOf(
-                    "item_title" to selectedItem.title,
-                    "item_desc" to selectedItem.description,
-                    "item_photo" to selectedItem.photo
-                )
-                findNavController().navigate(R.id.action_allItemsFragment_to_detailsFragment, bundle)
-            }
+                override fun onItemLongClicked(index: Int) {
+                    val item = (binding.recycler.adapter as ItemAdapter).itemAt(index)
 
-        })
-        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+                    viewModel.setItem(item)
+                    findNavController().navigate(R.id.action_allItemsFragment_to_detailsFragment)
+                }
+
+            })
+            binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+        }
+
+
 
         ItemTouchHelper(object : ItemTouchHelper.Callback()
         {
@@ -75,8 +78,10 @@ class AllItemsFragment : Fragment() {
                 viewHolder: RecyclerView.ViewHolder,
                 p1: Int
             ) {
-                ItemManager.remove(viewHolder.bindingAdapterPosition)
-                binding.recycler.adapter!!.notifyItemRemoved(viewHolder.bindingAdapterPosition)
+                val item = (binding.recycler.adapter as ItemAdapter).itemAt(viewHolder.bindingAdapterPosition)
+                viewModel.deleteItem(item)
+                //ItemManager.remove(viewHolder.bindingAdapterPosition)
+               // binding.recycler.adapter!!.notifyItemRemoved(viewHolder.bindingAdapterPosition)
             }
         }).attachToRecyclerView(binding.recycler)
     }
