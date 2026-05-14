@@ -15,7 +15,7 @@ abstract class ItemDataBase : RoomDatabase() {
         private var instance: ItemDataBase?= null
         fun getDatabase(context: Context) = instance ?: synchronized(this){
             Room.databaseBuilder(context.applicationContext, ItemDataBase::class.java, "items_db")
-                .allowMainThreadQueries().build()
+                .build()
         }
     }
 }

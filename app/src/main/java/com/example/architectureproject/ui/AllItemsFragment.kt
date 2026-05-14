@@ -55,6 +55,9 @@ class AllItemsFragment : Fragment() {
 
             })
             binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+            binding.clearAllBtn.setOnClickListener {
+                viewModel.deleteAll()
+            }
         }
 
 

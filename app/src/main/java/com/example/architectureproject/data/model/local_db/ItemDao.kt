@@ -25,4 +25,8 @@ interface ItemDao {
 
     @Query("SELECT * FROM items WHERE id like :id")
     fun getItem(id:Int): Item
+
+    @Query("DELETE FROM items")
+    suspend fun deleteAll()
+
 }

@@ -4,8 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.architectureproject.data.model.Item
 import com.example.architectureproject.data.repository.ItemRepository
+import kotlinx.coroutines.launch
 
 class ItemsViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = ItemRepository(application)
@@ -23,5 +25,11 @@ class ItemsViewModel(application: Application) : AndroidViewModel(application) {
 
     fun deleteItem(item:Item){
         repository.deleteItem(item)
+    }
+
+    fun deleteAll(){
+        viewModelScope.launch{
+            repository.deleteAll()
+        }
     }
 }

@@ -74,4 +74,8 @@ dependencies {
 
     // Third-party
     implementation("com.github.bumptech.glide:glide:5.0.5")
+
+    //Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
 }
