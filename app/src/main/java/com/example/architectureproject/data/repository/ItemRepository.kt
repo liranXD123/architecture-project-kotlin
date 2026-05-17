@@ -9,29 +9,29 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class ItemRepository(application: Application): CoroutineScope {
+class ItemRepository(application: Application) {//CoroutineScope {
 
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO
+    /*override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO*/
     private var itemDao: ItemDao
     init {
         val db= ItemDataBase.getDatabase(application.applicationContext)
         itemDao = db?.itemsDao()!!
     }
     fun getItems() = itemDao?.getItems()
-    fun addItem(item: Item){
-        launch{
+    suspend fun addItem(item: Item){
+        //launch{
             itemDao?.addItem(item)
-        }
+        //}
     }
-    fun deleteItem(item:Item){
-        launch {
+    suspend fun deleteItem(item:Item){
+        //launch {
             itemDao?.deleteItem(item)
-        }
+        //}
     }
     suspend fun deleteAll(){
         itemDao?.deleteAll()
     }
-    fun getItem(id:Int):Item = itemDao.getItem(id)
+   suspend fun getItem(id:Int):Item = itemDao.getItem(id)
 
 }

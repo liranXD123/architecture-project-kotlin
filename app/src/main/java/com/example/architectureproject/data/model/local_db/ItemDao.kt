@@ -12,13 +12,13 @@ import com.example.architectureproject.data.model.Item
 @Dao
 interface ItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addItem(item: Item)
+    suspend fun addItem(item: Item)
 
     @Delete
-    fun deleteItem(vararg items:Item)
+    suspend fun deleteItem(vararg items:Item)
 
     @Update
-    fun updateItem(item:Item)
+    suspend fun updateItem(item:Item)
 
     @Query("SELECT * FROM items ORDER BY content ASC")
     fun getItems() : LiveData<List<Item>>
